@@ -22,11 +22,7 @@ app.get('/aff',(req, res) => {
         "password":"1234"
     }
     
-    const config = {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    };
+   
     
     axios.post('https://web/api/sub', requestBody)
     .then(response => {
@@ -39,6 +35,30 @@ app.get('/aff',(req, res) => {
     
 })
 
+
+app.get('/totrans',(req,res)=>{
+    res.render('trans')
+
+});
+app.post('/trans',(req,res)=>{
+    const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAzMSwidHlwZSI6ImNsaWVudCIsIm9yaWdpbiI6Im1vYmlsZSIsImlhdCI6MTY4NDg0ODY1OCwiZXhwIjoxNjg1NDQ4NjU4fQ.L9xci2to-rX8GZpLyeM7GTdPet4HmWGppHyEFZjtY3A";
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    };
+    // console.log(req.body)
+    // console.log(config)
+    axios.post('https://devmauripay.cadorim.com/api/mobile/transfert', req.body,config)
+    .then(response => {
+        console.log(response.data);
+        res.redirect('/index');
+    })
+    .catch(error => {
+        console.error(error);
+        res.redirect('/index');
+    });
+});
 
 app.post('/uploude',(req, res) => {
 
