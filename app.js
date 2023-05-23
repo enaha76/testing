@@ -77,6 +77,27 @@ app.get('/index',(req, res) => {
     res.render('index')
 })
 
+
+
+app.get('/add',(req, res) => {
+    res.render('sighup')
+})
+
+
+app.post('/addc',(req, res) => {
+    console.log(req.body)
+    axios.post('https://devmauripay.cadorim.com/api/mobile/add', req.body)
+    .then(response => {
+        console.log(response.data);
+        res.redirect('/index');
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+
+})
+
   // Start the server after connecting to the database
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
