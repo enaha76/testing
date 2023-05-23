@@ -22,7 +22,7 @@ app.get('/aff',(req, res) => {
         "password":"1234"
     }
     
-   
+
     
     axios.post('https://web/api/sub', requestBody)
     .then(response => {
@@ -38,18 +38,29 @@ app.get('/aff',(req, res) => {
 
 app.get('/totrans',(req,res)=>{
     res.render('trans')
-
+   
 });
 app.post('/trans',(req,res)=>{
-    const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAzMSwidHlwZSI6ImNsaWVudCIsIm9yaWdpbiI6Im1vYmlsZSIsImlhdCI6MTY4NDg0ODY1OCwiZXhwIjoxNjg1NDQ4NjU4fQ.L9xci2to-rX8GZpLyeM7GTdPet4HmWGppHyEFZjtY3A";
-    const config = {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    };
+// mehaxios.get('http://localhost:3000/api/some-protected-endpoint', {
+    //   headers: { Authorization: `Bearer ${token}` }
+    // })
+
+    
+    
+    const bod = {
+        tel_bf:req.body.tel_bf,
+        password :req.body.password,
+        montant:req.body.montant
+    }
+
     // console.log(req.body)
     // console.log(config)
-    axios.post('https://devmauripay.cadorim.com/api/mobile/transfert', req.body,config)
+    //         'https://devmauripay.cadorim.com/api/mobile/private/transfert
+    axios.post('https://devmauripay.cadorim.com/api/mobile/private/transfert', bod,
+    {
+        headers: { Authorization: `Bearer ${req.body.token}` }
+    }
+    )
     .then(response => {
         console.log(response.data);
         res.redirect('/index');
@@ -66,7 +77,8 @@ app.post('/uploude',(req, res) => {
     axios.post('https://devmauripay.cadorim.com/api/mobile/login', req.body)
     .then(response => {
         console.log(response.data);
-        res.redirect('/index');
+        console.log("the token",response.data.token);
+        res.render('trans',{token : response.data.token});
     })
     .catch(error => {
         console.error(error);
@@ -93,6 +105,7 @@ app.post('/addc',(req, res) => {
     })
     .catch(error => {
         console.error(error);
+        res.redirect('/index');
     });
 
 
