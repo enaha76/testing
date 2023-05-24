@@ -2,9 +2,29 @@ const express = require('express');
 const app = express();
 const axios = require('axios');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const port = 3000;
 
 
+app.use(session({
+    secret: 'cadorim',
+    resave: false,
+    saveUninitialized: false
+}));
+
+// todo add varible session
+// req.session.isAdmin = true;
+    //   req.session.save();
+
+
+// todo: session distroy
+    // req.session.destroy(err => {
+    //     if (err) {
+    //         console.log(err)
+    //     } else {
+    //         res.redirect('/')
+    //     }
+    //     })
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
