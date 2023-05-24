@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Buttons | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
+    <meta content="Coderthemes" name="author">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- App css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style">
+    <link href="assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style">
+</head>
+<body>
+    
+    <div class="container p-4 m-4">
+
+        
+    <div class="row">
+        <div class="col-8">
+            <div class="m-3">
+            <a href="index.html" class="text-success" ><i class=" uil-corner-up-right"></i> logout</a>
+
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    the user is tested successfuly 
+                </div>
+               
+            </div>
+           
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-8">
+        <div class="card">
+        <div class="card-body">
+        <button type="button" class="btn btn-outline-info m-3"  data-bs-toggle="modal" data-bs-target="#coderet-modal"><i class="uil-money-withdrawal"></i> Test Retrait</button>
+        <button type="button" class="btn btn-outline-danger m-3" data-bs-toggle="modal" data-bs-target="#codedepo-modal"><i class="uil-receipt"></i> Test Depot</button>
+        <button type="button" class="btn btn-outline-primary m-3" data-bs-toggle="modal" data-bs-target="#codetrans-modal"><i class=" uil-money-insert" ></i> Test transfert MauriPay</button>
+    
+ 
+  
+<!-- code modal -->
+<div id="coderet-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center mt-2 mb-4">
+                    <a href="index.html" class="text-success">
+                        <span><img src="assets/images/logo3.png" alt="" height="50"></span>
+                    </a>
+                </div>
+
+                <form action="#" class="ps-3 pe-3">
+
+                    <div class="mb-3">
+                        <label for="code" class="form-label">Code confimation</label>
+                        <input class="form-control" type="text" id="code" required="" placeholder="code">
+                    </div>
+
+                    <div class="mb-3 text-center">
+                        <button class="btn btn-rounded btn-info" type="submit">Valider</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<!-- code modal -->
+<div id="codedepo-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center mt-2 mb-4">
+                    <a href="index.html" class="text-success">
+                        <span><img src="assets/images/logo3.png" alt="" height="50"></span>
+                    </a>
+                </div>
+
+                <form action="#" class="ps-3 pe-3">
+
+                    <div class="mb-3">
+                        <label for="code" class="form-label">Code confimation</label>
+                        <input class="form-control" type="text" id="code" required="" placeholder="code">
+                    </div>
+
+                    <div class="mb-3 text-center">
+                        <button class="btn btn-rounded btn-info" type="submit">Valider</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<!-- code modal -->
+<div id="codetrans-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center mt-2 mb-4">
+                    <a href="index.html" class="text-success">
+                        <span><img src="assets/images/logo3.png" alt="" height="50"></span>
+                    </a>
+                </div>
+
+                <form action="#" class="ps-3 pe-3">
+
+                    <div class="mb-3">
+                        <label for="tel" class="form-label">telephone du benef</label>
+                        <input class="form-control" type="text" id="tel" required="" placeholder="telephone">
+                    </div>
+                    <div class="mb-3">
+                        <label for="m" class="form-label">Montant</label>
+                        <input class="form-control" type="text" id="m" required="" placeholder="Montant">
+                    </div>
+
+                    <div class="mb-3 text-center">
+                        <button class="btn btn-rounded btn-info" type="submit">Valider</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</div>
+
+    </div>
+    </div>
+   <!-- Right modal -->
+<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#right-modal">Rightbar Modal</button>
+<div id="right-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-right">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    ...
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+    </div>
+
+
+
+    <div class="rightbar-overlay"></div>
+        <!-- /End-bar -->
+
+
+        <!-- bundle -->
+        <script src="assets/js/vendor.min.js"></script>
+        <script src="assets/js/app.min.js"></script>
+        
+</body>
+</html>

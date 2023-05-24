@@ -39,6 +39,11 @@ app.get('/totrans',(req,res)=>{
     res.render('trans')
 
 });
+
+app.get('/test',(req,res)=>{
+    res.render('test')
+
+});
 app.post('/trans',(req,res)=>{
 // mehaxios.get('http://localhost:3000/api/some-protected-endpoint', {
     //   headers: { Authorization: `Bearer ${token}` }
