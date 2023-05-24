@@ -15,27 +15,6 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 
 
-
-app.get('/aff',(req, res) => {
-    const requestBody = {
-        "email":41234567,
-        "password":"1234"
-    }
-    
-
-    
-    axios.post('https://web/api/sub', requestBody)
-    .then(response => {
-        console.log(response.data);
-        res.redirect('/index')
-    })
-    .catch(error => {
-        console.error(error);
-    });
-    
-})
-
-
 app.get('/totrans',(req,res)=>{
     res.render('trans')
 
@@ -63,11 +42,11 @@ app.post('/trans',(req,res)=>{
     )
     .then(response => {
         console.log(response.data);
-        res.redirect('/index');
+        res.redirect('/login');
     })
     .catch(error => {
         console.error(error);
-        res.redirect('/index');
+        res.redirect('/login');
     });
 });
 
@@ -85,21 +64,21 @@ app.post('/login',(req, res) => {
         //     res.json({ message: "Login failed" });
         // }
         // console.log("the token",response.data.token);
-        res.render('depot',{token : response.data.token});
+        res.render('retrait',{token : response.data.token});
     })
     .catch(error => {
         console.error(error);
     });
 })
 
-app.get('/index',(req, res) => {
-    res.render('index')
+app.get('/login',(req, res) => {
+    res.render('login')
 })
 
 
 
 app.get('/add',(req, res) => {
-    res.render('sighup')
+    res.render('signup')
 })
 
 
@@ -118,7 +97,7 @@ app.post('/addc',(req, res) => {
     })
     .catch(error => {
         console.error(error);
-        res.redirect('/index');
+        res.redirect('/login');
     });
 
 
@@ -147,11 +126,11 @@ app.post('/depot',(req,res)=>{
     )
     .then(response => {
         console.log(response.data);
-        res.redirect('/index');
+        res.redirect('/login');
     })
     .catch(error => {
         console.error(error);
-        res.redirect('/index');
+        res.redirect('/login');
     });
     
     
@@ -159,7 +138,37 @@ app.post('/depot',(req,res)=>{
     
     
 });
+app.get('toretrait',(req,res)=>{
+    res.render('retrait')
+})
+app.post('/retrait',(req,res)=>{
+    //{ success: true, msg: 'deposit is done', montant: 5 } 
+    
+    const data = {
+        code:req.body.code,
+        password :req.body.pass,
+    }
 
+    
+    axios.post('https://devmauripay.cadorim.com/api/mobile/private/retrait', data,
+    {
+        headers: { Authorization: `Bearer ${req.body.token}` }
+    }
+    )
+    .then(response => {
+        console.log(response.data);
+        res.redirect('/login');
+    })
+    .catch(error => {
+        console.error(error);
+        res.redirect('/login');
+    });
+    
+    
+    
+    
+    
+});
 
   // Start the server after connecting to the database
 app.listen(port, () => {
