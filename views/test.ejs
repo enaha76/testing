@@ -22,12 +22,14 @@
     <div class="row">
         <div class="col-8">
             <div class="m-3">
-            <a href="index.html" class="text-success" ><i class=" uil-corner-up-right"></i> logout</a>
+            <a href="/logout" class="text-success" ><i class=" uil-corner-up-right"></i> logout</a>
 
             </div>
             <div class="card">
                 <div class="card-body">
-                    the user is tested successfuly 
+                    <% if(logins) {%>
+                   <p> the user is tested successfuly </p>
+                  <% } %>
                 </div>
                
             </div>
@@ -50,16 +52,17 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="text-center mt-2 mb-4">
-                    <a href="index.html" class="text-success">
+                    <a href="#" class="text-success">
                         <span><img src="assets/images/logo3.png" alt="" height="50"></span>
                     </a>
                 </div>
 
-                <form action="#" class="ps-3 pe-3">
+                <form action="/retrait" method="POST" class="ps-3 pe-3">
 
                     <div class="mb-3">
-                        <label for="code" class="form-label">Code confimation</label>
-                        <input class="form-control" type="text" id="code" required="" placeholder="code">
+                        <label for="code" class="form-label">Code confirmation</label>
+                        
+                        <input class="form-control" name="code" type="text" id="code" required="" placeholder="code">
                     </div>
 
                     <div class="mb-3 text-center">
@@ -75,23 +78,23 @@
 
 
 
-
 <!-- code modal -->
 <div id="codedepo-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="text-center mt-2 mb-4">
-                    <a href="index.html" class="text-success">
+                    <a href="#" class="text-success">
                         <span><img src="assets/images/logo3.png" alt="" height="50"></span>
                     </a>
                 </div>
 
-                <form action="#" class="ps-3 pe-3">
+                <form action="/depot" method="POST" class="ps-3 pe-3">
 
                     <div class="mb-3">
+                        
                         <label for="code" class="form-label">Code confimation</label>
-                        <input class="form-control" type="text" id="code" required="" placeholder="code">
+                        <input class="form-control" name="code" type="text" id="code" required="" placeholder="code">
                     </div>
 
                     <div class="mb-3 text-center">
@@ -113,20 +116,20 @@
         <div class="modal-content">
             <div class="modal-body">
                 <div class="text-center mt-2 mb-4">
-                    <a href="index.html" class="text-success">
+                    <a href="#" class="text-success">
                         <span><img src="assets/images/logo3.png" alt="" height="50"></span>
                     </a>
                 </div>
 
-                <form action="#" class="ps-3 pe-3">
+                <form action="/trans" method="POST" class="ps-3 pe-3">
 
                     <div class="mb-3">
                         <label for="tel" class="form-label">telephone du benef</label>
-                        <input class="form-control" type="text" id="tel" required="" placeholder="telephone">
+                        <input class="form-control" name="tel_bf" type="text" id="tel" required="" placeholder="telephone">
                     </div>
                     <div class="mb-3">
                         <label for="m" class="form-label">Montant</label>
-                        <input class="form-control" type="text" id="m" required="" placeholder="Montant">
+                        <input class="form-control" name="montant" type="text" id="m" required="" placeholder="Montant">
                     </div>
 
                     <div class="mb-3 text-center">
@@ -144,8 +147,8 @@
     </div>
     </div>
    <!-- Right modal -->
-<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#right-modal">Rightbar Modal</button>
-<div id="right-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#right-modal">Rightbar Modal</button> -->
+<div id="right-modal" data-depots="<%= depots %>" data-retraits="<%= retraits %>" data-transs="<%= transs %>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-right">
         <div class="modal-content">
             <div class="modal-header border-0">
@@ -153,7 +156,15 @@
             </div>
             <div class="modal-body">
                 <div class="text-center">
-                    ...
+                    <% if(transs){ %>
+                        <p>Transfer by  MauriPay  Tested successfuly</p>
+                    <% } %>
+                    <% if(depots){ %>
+                        <p>Deposit by  MauriPay  Tested successfuly</p>
+                    <% } %>
+                    <% if(retraits){ %>
+                        <p>Retrait testé Avec success</p>
+                    <% } %>
                 </div>
             </div>
         </div><!-- /.modal-content -->
@@ -167,10 +178,36 @@
     <div class="rightbar-overlay"></div>
         <!-- /End-bar -->
 
-
+    
         <!-- bundle -->
         <script src="assets/js/vendor.min.js"></script>
         <script src="assets/js/app.min.js"></script>
-        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+  // script.js
+
+$(document).ready(function() {
+    if ($('#right-modal').data('depots') || $('#right-modal').data('retraits') || $('#right-modal').data('transs')) {
+      $('#right-modal').modal('show');
+    }
+  
+    // Rest of your code
+  });
+  
+</script>   
+
+
+
+<script>
+
+    // JavaScript code executed on the "/studentclaim" page
+document.addEventListener('DOMContentLoaded', () => {
+// Remove the "smodal" query parameter from the URL
+const urlWithoutSmodal = window.location.origin + window.location.pathname;
+window.history.replaceState(null, null, urlWithoutSmodal);
+});
+
+</script>
 </body>
 </html>
