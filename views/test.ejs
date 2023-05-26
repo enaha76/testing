@@ -25,14 +25,9 @@
             <a href="/logout" class="text-success" ><i class=" uil-corner-up-right"></i> logout</a>
 
             </div>
-            <div class="card">
-                <div class="card-body">
-                    <% if(logins) {%>
-                   <p> the user is tested successfuly </p>
-                  <% } %>
-                </div>
+                 
                
-            </div>
+           
            
         </div>
         </div>
@@ -157,19 +152,60 @@
             <div class="modal-body">
                 <div class="text-center">
                     <% if(transs){ %>
-                        <p>Transfer by  MauriPay  Tested successfuly</p>
+                        <div class="alert alert-info bg-white text-info" role="alert">
+                           the <strong>Transfer by  MauriPay  </strong> Tested successfuly
+                        </div>
                     <% } %>
                     <% if(depots){ %>
-                        <p>Deposit by  MauriPay  Tested successfuly</p>
+                        <div class="alert alert-info bg-white text-info" role="alert">
+                            The <strong>Deposit by  MauriPay  </strong> Tested successfuly
+                        </div>
                     <% } %>
                     <% if(retraits){ %>
-                        <p>Retrait testé Avec success</p>
+                        <div class="alert alert-info bg-white text-info" role="alert">
+                            The<strong>Retrait testé </strong>Avec success
+                        </div>
                     <% } %>
                 </div>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+
+
+<!-- Success Alert Modal -->
+<!-- <button type="button" data-depots="<%= depots %>" data-retraits="<%= retraits %>" data-transs="<%= transs %>" data-logins="<%= logins %>" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#success-alert-modal">Success Alert</button> -->
+<div id="success-alert-modal" data-depots="<%= depots %>" data-retraits="<%= retraits %>" data-transs="<%= transs %>" data-logins="<%= logins %>" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content modal-filled bg-success">
+            <div class="modal-body p-4">
+                <div class="text-center">
+                    <i class="dripicons-checkmark h1"></i>
+                    <h4 class="mt-2">Well Done!</h4>
+                    <% if(transs){ %>
+                        
+                        <p>  the <strong>Transfer by  MauriPay  </strong> Tested successfuly </p>  
+                        
+                    <% } %>
+                    <% if(depots){ %>
+                        <p>The <strong>Deposit by  MauriPay  </strong> Tested successfuly</p>
+                    <% } %>
+                    <% if(retraits){ %>
+                       <p>  The<strong>Retrait testé </strong>Avec success </p>
+                    <% } %>
+
+                    <% if(logins) {%>
+                       <p> the  <strong>user</strong> login is tested successfuly </p>
+                  <% } %>
+                    <button type="button" class="btn btn-light my-2" data-bs-dismiss="modal">Continue</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
     </div>
 
@@ -188,8 +224,8 @@
   // script.js
 
 $(document).ready(function() {
-    if ($('#right-modal').data('depots') || $('#right-modal').data('retraits') || $('#right-modal').data('transs')) {
-      $('#right-modal').modal('show');
+    if ($('#success-alert-modal').data('depots') || $('#success-alert-modal').data('retraits') || $('#success-alert-modal').data('transs') || $('#success-alert-modal').data('logins')) {
+      $('#success-alert-modal').modal('show');
     }
   
     // Rest of your code
