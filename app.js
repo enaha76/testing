@@ -3,9 +3,17 @@ const app = express();
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const mysql = require('mysql');
+
 const port = 3000;
 
-
+const pool = mysql.createPool({
+    host: 'localhost',
+    port: '3306',
+    user: 'root',
+    password: '',
+    database: 'mauripaytests'
+    });
 app.use(session({
     secret: 'cadorim',
     resave: false,
@@ -41,8 +49,17 @@ app.get('/totrans',(req,res)=>{
 });
 
 app.get('/test',(req,res)=>{
-    res.render('test')
-
+    if (req.session.isonline) {
+        const depots=req.query.depots;
+        const retraits=req.query.retraits;
+        const transs=req.query.transs;
+        const logins=req.query.logins;
+        // transs
+        // logins
+        res.render('test',{token:req.session.token,password:req.session.password,depots:depots,retraits:retraits,transs:transs,logins:logins});
+    }else{
+    res.redirect('/login')
+    }
 });
 app.post('/trans',(req,res)=>{
 // mehaxios.get('http://localhost:3000/api/some-protected-endpoint', {
@@ -53,25 +70,25 @@ app.post('/trans',(req,res)=>{
     
     const bod = {
         tel_bf:req.body.tel_bf,
-        password :req.body.password,
+        password :req.session.password,
         montant:req.body.montant
     }
 
     // console.log(req.body)
     // console.log(config)
-    //         'https://devmauripay.cadorim.com/api/mobile/private/transfert
+    // 'https://devmauripay.cadorim.com/api/mobile/private/transfert
     axios.post('https://devmauripay.cadorim.com/api/mobile/private/transfert', bod,
     {
-        headers: { Authorization: `Bearer ${req.body.token}` }
+        headers: { Authorization: `Bearer ${req.session.token}` }
     }
     )
     .then(response => {
-        console.log(response.data);
-        res.redirect('/login');
+        // console.log(response.data);
+        res.redirect(`/test?transs=${encodeURIComponent(response.data)}`);
     })
     .catch(error => {
         console.error(error);
-        res.redirect('/login');
+        res.redirect('/test');
     });
 });
 
@@ -89,7 +106,22 @@ app.post('/login',(req, res) => {
         //     res.json({ message: "Login failed" });
         // }
         // console.log("the token",response.data.token);
-        res.render('retrait',{token : response.data.token});
+        // res.render('retrait',{token : response.data.token});
+        // console.log(response.data);
+        if (response.data.success) {
+            req.session.isonline=true;
+            req.session.token = response.data.token;
+            req.session.password = req.body.password
+            req.session.save();
+            //console.log("the token",response.data.token);
+            res.redirect(`/test?logins=${encodeURIComponent(response.data)}`)
+            
+
+        } else {
+            res.json({ message: "Login failed" });
+        }
+        
+        
     })
     .catch(error => {
         console.error(error);
@@ -138,7 +170,7 @@ app.post('/depot',(req,res)=>{
     
     const bod = {
         code:req.body.code,
-        password :req.body.password,
+        password :req.session.password,
     }
 
     // console.log(req.body)
@@ -146,16 +178,16 @@ app.post('/depot',(req,res)=>{
     //         'https://devmauripay.cadorim.com/api/mobile/private/transfert
     axios.post('https://devmauripay.cadorim.com/api/mobile/private/depot', bod,
     {
-        headers: { Authorization: `Bearer ${req.body.token}` }
+        headers: { Authorization: `Bearer ${req.session.token}` }
     }
     )
     .then(response => {
         console.log(response.data);
-        res.redirect('/login');
+        res.redirect(`/test?depots=${encodeURIComponent(response.data)}`);
     })
     .catch(error => {
         console.error(error);
-        res.redirect('/login');
+        res.redirect('/test');
     });
     
     
@@ -171,22 +203,22 @@ app.post('/retrait',(req,res)=>{
     
     const data = {
         code:req.body.code,
-        password :req.body.pass,
+        password :req.session.password,
     }
 
     
     axios.post('https://devmauripay.cadorim.com/api/mobile/private/retrait', data,
     {
-        headers: { Authorization: `Bearer ${req.body.token}` }
+        headers: { Authorization: `Bearer ${req.session.token}` }
     }
     )
     .then(response => {
         console.log(response.data);
-        res.redirect('/login');
+        res.redirect(`/test?retraits=${encodeURIComponent(response.data)}`);
     })
     .catch(error => {
         console.error(error);
-        res.redirect('/login');
+        res.redirect('/test');
     });
     
     
@@ -194,6 +226,25 @@ app.post('/retrait',(req,res)=>{
     
     
 });
+
+app.get('/logout',(req,res)=>{
+    req.session.destroy(err => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.redirect('/login')
+            }
+            })
+    
+})
+
+// req.session.destroy(err => {
+    //     if (err) {
+    //         console.log(err)
+    //     } else {
+    //         res.redirect('/')
+    //     }
+    //     })
 
   // Start the server after connecting to the database
 app.listen(port, () => {
