@@ -3,9 +3,18 @@ const app = express();
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const mysql = require('mysql');
+
 const port = 3000;
 
-
+const pool = mysql.createPool({
+    host: 'localhost',
+    port: '3306',
+    user: 'root',
+    password: '',
+    database: 'mauripaytests'
+  });
+  
 app.use(session({
     secret: 'cadorim',
     resave: false,
