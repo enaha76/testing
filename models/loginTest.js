@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/sequelize'); // Import the configured Sequelize instance
 
-const logintest = sequelize.define('logintest', {
+const logintests = sequelize.define('logintests', {
 
   email: { 
     type: DataTypes.STRING,
@@ -22,4 +22,4 @@ const logintest = sequelize.define('logintest', {
 
 });
 
-module.exports = logintest;
+module.exports = logintests;
