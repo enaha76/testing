@@ -3,7 +3,7 @@ const sequelize = require('../config/sequelize'); // Import the configured Seque
 
 const logintest = sequelize.define('logintest', {
 
-  email: {
+  email: { 
     type: DataTypes.STRING,
     allowNull: false,
     primaryKey: true
