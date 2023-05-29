@@ -4,8 +4,7 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const sequelize = require('./config/sequelize'); // Import the configured Sequelize instance
-const logintest = require('./models/loginTest');
-
+const {logintest,users} = require('./models');
 const port = 3000;
 
 sequelize.authenticate()
