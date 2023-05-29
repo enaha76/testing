@@ -1,11 +1,16 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/sequelize');
 
-const logintests = sequelize.define('logintests', {
+const Logintests = sequelize.define('logintests', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    primaryKey: true
+    unique: true
   },
   password: {
     type: DataTypes.STRING,
@@ -19,9 +24,9 @@ const logintests = sequelize.define('logintests', {
     allowNull: false
   }
 }, {
-  timestamps: true, // Add createdAt and updatedAt columns
-  createdAt: 'created_at', // Customize the column name if needed
-  updatedAt: 'updated_at' // Customize the column name if needed
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
-module.exports = logintests;
+module.exports = Logintests;
