@@ -12,7 +12,7 @@ const logintest = sequelize.define('logintest', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  reponse: {
+  reponse: { 
     type: DataTypes.JSON,
   },
   repExcepte: {
