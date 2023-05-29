@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const sequelize = require('./config/sequelize'); // Import the configured Sequelize instance
 // const {logintest,users} = require('./models');
+const logintest = require('./models/loginTest');
+const users = require('./models/users');
+
 const port = 3000;
 
 sequelize
@@ -220,19 +223,61 @@ app.get("/logout", (req, res) => {
 //         res.redirect('/')
 //     }
 //     })
+function log(va) {
+    return axios.post("https://devmauripay.cadorim.com/api/mobile/login", va)
+        .then(response => response.data)
+        .catch(error => {
+            console.error(error);
+        });
+}
 
+app.get('/data', async (req, res) => {
+    try {
+        const usersData = await users.findAll({
+            attributes: ['email', 'password'], // Specify the columns to include in the result
+        });
 
+        const userArray = usersData.map(user => ({
+            email: user.email,
+            password: user.password,
+        }));
 
-// router.get('/data', async (req, res) => {
-//     try {
-//         const users = await User.findAll();
-//         const logintest = await Film.findAll();
-//         res.json({ users, films });
-//     } catch (error) {
-//         console.error('Error fetching data:', error);
-//         res.status(500).send('Internal Server Error');
-//     }
-// });
+        async function add(user, response) {
+            const { email, password } = user;
+            try {
+                // Create a new record in the logintest table
+                const newUser = await logintest.create({
+                    email,
+                    password,
+                    response,
+                    repExcepte: "ok",
+                });
+                console.log('New user added:', newUser);
+                return newUser;
+            } catch (error) {
+                console.error('Error inserting data:', error);
+                throw error; // Rethrow the error to be handled by the caller
+            }
+        }
+
+        const promises = userArray.map(user => log(user));
+        const responseData = await Promise.all(promises);
+
+        for (let i = 0; i < userArray.length; i++) {
+            const user = userArray[i];
+            const data = responseData[i];
+            await add(user, data);
+            console.log("data", data, "user", user);
+        }
+
+        const response = { us: userArray };
+        res.json(response);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 
 // Start the server after connecting to the database
