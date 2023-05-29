@@ -3,7 +3,7 @@ const app = express();
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const sequelize = require('./config'); // Import the configured Sequelize instance
+const sequelize = require('./config/sequelize'); // Import the configured Sequelize instance
 const logintest = require('./models/loginTest');
 
 const port = 3000;
