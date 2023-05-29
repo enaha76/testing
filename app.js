@@ -13,7 +13,8 @@ const pool = mysql.createPool({
     user: 'root',
     password: '',
     database: 'mauripaytests'
-    });
+  });
+  
 app.use(session({
     secret: 'cadorim',
     resave: false,
@@ -98,15 +99,7 @@ app.post('/login',(req, res) => {
     axios.post('https://devmauripay.cadorim.com/api/mobile/login', req.body)
     .then(response => {
 
-
-        console.log(response.data);
-        // if (response.data.success) {
-        //     res.json({ message: "Login successful" });
-        // } else {
-        //     res.json({ message: "Login failed" });
-        // }
-        // console.log("the token",response.data.token);
-        // res.render('retrait',{token : response.data.token});
+         
         // console.log(response.data);
         if (response.data.success) {
             req.session.isonline=true;
