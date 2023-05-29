@@ -82,7 +82,7 @@ app.post('/login',(req, res) => {
     .then(response => {
 
 
-        // console.log(response.data);
+        console.log(response.data);
         // if (response.data.success) {
         //     res.json({ message: "Login successful" });
         // } else {
