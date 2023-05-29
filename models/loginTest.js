@@ -1,12 +1,16 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/sequelize'); // Import the configured Sequelize instance
+const sequelize = require('../config/sequelize');
 
-const logintests = sequelize.define('logintests', {
-
-  email: { 
+const Logintests = sequelize.define('logintests', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  email: {
     type: DataTypes.STRING,
     allowNull: false,
-    primaryKey: true
+    unique: true
   },
   password: {
     type: DataTypes.STRING,
@@ -19,7 +23,10 @@ const logintests = sequelize.define('logintests', {
     type: DataTypes.JSON,
     allowNull: false
   }
-
+}, {
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
 });
 
-module.exports = logintests;
+module.exports = Logintests;
