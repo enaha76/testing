@@ -9,7 +9,7 @@ const logintest = require('./models/loginTest');
 const users = require('./models/users');
 
 const port = 3000;
-const logintest=require('./models/loginTest');
+// const logintest=require('./models/loginTest');
 
 app.use(bodyParser.json());
 

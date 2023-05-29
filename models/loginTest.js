@@ -1,8 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/sequelize'); // Import the configured Sequelize instance
+const sequelize = require('../config/sequelize');
 
 const logintests = sequelize.define('logintests', {
-
   email: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -19,7 +18,10 @@ const logintests = sequelize.define('logintests', {
     type: DataTypes.JSON,
     allowNull: false
   }
-
+}, {
+  timestamps: true, // Add createdAt and updatedAt columns
+  createdAt: 'created_at', // Customize the column name if needed
+  updatedAt: 'updated_at' // Customize the column name if needed
 });
 
 module.exports = logintests;
