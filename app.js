@@ -4,8 +4,10 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const sequelize = require('./config/sequelize'); // Import the configured Sequelize instance
-// const {logintest,users} = require('./models');
 const port = 3000;
+const logintest=require('./models/loginTest');
+
+app.use(bodyParser.json());
 
 sequelize
     .authenticate()
@@ -48,6 +50,22 @@ app.set("view engine", "ejs");
 
 app.get("/totrans", (req, res) => {
     res.render("trans");
+});
+
+app.get('/tologintest',(req,res)=>{
+ res.render('AddUsers')
+});
+app.post('/addlogintest', async (req, res) => {
+  try {
+
+    const { email, password ,reponse,repExcepte} = req.body; // Assuming the data is sent in the request body
+    const createdLogin = await logintest.create({ email, password, reponse, repExcepte });
+    res.status(201).json(createdLogin);
+    console.log("insterted");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 });
 
 app.get("/test", (req, res) => {

@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('logintest', {
+    await queryInterface.createTable('logintests', {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -26,6 +26,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('logintest');
+    await queryInterface.dropTable('logintests');
   }
 };
