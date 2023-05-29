@@ -4,7 +4,7 @@ const axios = require('axios');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const sequelize = require('./config/sequelize'); // Import the configured Sequelize instance
-const {logintest,users} = require('./models');
+// const {logintest,users} = require('./models');
 const port = 3000;
 
 sequelize
@@ -223,16 +223,16 @@ app.get("/logout", (req, res) => {
 
 
 
-router.get('/data', async (req, res) => {
-    try {
-        const users = await User.findAll();
-        const films = await Film.findAll();
-        res.json({ users, films });
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
+// router.get('/data', async (req, res) => {
+//     try {
+//         const users = await User.findAll();
+//         const logintest = await Film.findAll();
+//         res.json({ users, films });
+//     } catch (error) {
+//         console.error('Error fetching data:', error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
 
 
 // Start the server after connecting to the database
