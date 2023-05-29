@@ -9,7 +9,7 @@ const logintest = require('./models/loginTest');
 const users = require('./models/users');
 
 const port = 3000;
-const logintest=require('./models/loginTest');
+// const logintest=require('./models/loginTest');
 
 app.use(bodyParser.json());
 
@@ -56,20 +56,20 @@ app.get("/totrans", (req, res) => {
     res.render("trans");
 });
 
-app.get('/tologintest',(req,res)=>{
- res.render('AddUsers')
+app.get('/tologintest', (req, res) => {
+    res.render('AddUsers')
 });
 app.post('/addlogintest', async (req, res) => {
-  try {
+    try {
 
-    const { email, password ,reponse,repExcepte} = req.body; // Assuming the data is sent in the request body
-    const createdLogin = await logintest.create({ email, password, reponse, repExcepte });
-    res.status(201).json(createdLogin);
-    console.log("insterted");
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
+        const { email, password, reponse, repExcepte } = req.body; // Assuming the data is sent in the request body
+        const createdLogin = await logintest.create({ email, password, reponse, repExcepte });
+        res.status(201).json(createdLogin);
+        console.log("insterted");
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
 });
 
 app.get("/test", (req, res) => {
@@ -261,35 +261,39 @@ app.get('/data', async (req, res) => {
             password: user.password,
         }));
 
-        async function add(user, response) {
-            const { email, password } = user;
-            try {
-                // Create a new record in the logintest table
-                const newUser = await logintest.create({
-                    email,
-                    password,
-                    response,
-                    repExcepte: "ok",
-                });
-                console.log('New user added:', newUser);
-                return newUser;
-            } catch (error) {
-                console.error('Error inserting data:', error);
-                throw error; // Rethrow the error to be handled by the caller
-            }
-        }
+        // async function add(user, response) {
+        //     const { email, password } = user;
+        //     try {
+        //         // Create a new record in the logintest table
+        //         const newUser = await logintest.create({
+        //             email,
+        //             password,
+        //             response,
+        //             repExcepte: "ok",
+        //         });
+        //         console.log('New user added:', newUser);
+        //         return newUser;
+        //     } catch (error) {
+        //         console.error('Error inserting data:', error);
+        //         throw error; // Rethrow the error to be handled by the caller
+        //     }
+        // }
 
-        const promises = userArray.map(user => log(user));
-        const responseData = await Promise.all(promises);
+        const promises = userArray.map(async (user) => {
+            const response = await log(user); // Wait for the log() function to resolve
+            return response; // Return the response object as-is
+        });
 
-        for (let i = 0; i < userArray.length; i++) {
-            const user = userArray[i];
-            const data = responseData[i];
-            await add(user, data);
-            console.log("data", data, "user", user);
-        }
+        // const responseDataArray = await Promise.all(promises);
 
-        const response = { us: userArray };
+        // for (let i = 0; i < userArray.length; i++) {
+        //     const user = userArray[i];
+        //     const responseData = responseDataArray[i];
+        //     await add(user, responseData);
+        //     console.log("data", responseData, "user", user);
+        // }
+
+        const response = { userArray };
         res.json(response);
     } catch (error) {
         console.error('Error fetching data:', error);
