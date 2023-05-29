@@ -221,6 +221,20 @@ app.get("/logout", (req, res) => {
 //     }
 //     })
 
+
+
+router.get('/data', async (req, res) => {
+    try {
+        const users = await User.findAll();
+        const films = await Film.findAll();
+        res.json({ users, films });
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+
 // Start the server after connecting to the database
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
