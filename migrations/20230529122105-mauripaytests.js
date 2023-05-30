@@ -20,6 +20,8 @@ module.exports = {
       },
       reponse: {
         type: DataTypes.JSON,
+        allowNull: false
+
       },
       repExcepte: {
         type: DataTypes.JSON,

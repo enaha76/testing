@@ -18,6 +18,8 @@ const Logintests = sequelize.define('logintests', {
   },
   reponse: { 
     type: DataTypes.JSON,
+    allowNull: false
+
   },
   repExcepte: {
     type: DataTypes.JSON,
