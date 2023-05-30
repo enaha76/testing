@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>F</title>
+      <!-- App css -->
+      <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css">
+      <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style">
+      <link href="assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style">
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
@@ -236,14 +240,13 @@
             }
         }
     </style>
+    
 </head>
 
 <body>
-    <div class="content">
+    <div class="container">
         <div class="flex-div">
-            <div class="name-content">
             
-            </div>
             <form  action="/addlogintest" method="POST">
                 <h1>login test</h1>
                 <input type="text" name="email"  placeholder=" Phone Number" required />
@@ -251,12 +254,68 @@
                 <input type="text" name="reponse"  placeholder=" reponse" required />
                 <input type="text" name="repExcepte" placeholder="reponse Excepté" required>
                 <button class="login">save</button>
-              
+                 
                 
             </form>
     
+
+
         </div>
+        
+
+
+        <a href="#lists" class="btn btn-primary">show login tests</a>
+         <div class="card m-9">
+            <div class="card-body">
+
+           <div id="lists" class="m-4">
+            <table class="table table-hover table-centered mb-0">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ASOS Ridley High Waist</td>
+                        <td>$79.49</td>
+                        <td><span class="badge bg-primary">82 Pcs</span></td>
+                        <td>$6,518.18</td>
+                    </tr>
+                    <tr>
+                        <td>Marco Lightweight Shirt</td>
+                        <td>$128.50</td>
+                        <td><span class="badge bg-primary">37 Pcs</span></td>
+                        <td>$4,754.50</td>
+                    </tr>
+                    <tr>
+                        <td>Half Sleeve Shirt</td>
+                        <td>$39.99</td>
+                        <td><span class="badge bg-primary">64 Pcs</span></td>
+                        <td>$2,559.36</td>
+                    </tr>
+                    <tr>
+                        <td>Lightweight Jacket</td>
+                        <td>$20.00</td>
+                        <td><span class="badge bg-primary">184 Pcs</span></td>
+                        <td>$3,680.00</td>
+                    </tr>
+                </tbody>
+            </table>   
+        </div>
+    </div>        
     </div>
+</div>
+
+
+
+        <!-- bundle -->
+        <script src="assets/js/vendor.min.js"></script>
+        <script src="assets/js/app.min.js"></script>
 </body>
+
 
 </html>

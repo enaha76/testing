@@ -16,14 +16,17 @@ const Logintests = sequelize.define('logintests', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  reponse: { 
+  reponse: {
     type: DataTypes.JSON,
-    allowNull: false
-
+    allowNull: true
   },
   repExcepte: {
     type: DataTypes.JSON,
     allowNull: false
+  },
+  Test: {
+    type: DataTypes.STRING,
+    allowNull: true
   }
 }, {
   timestamps: true,
