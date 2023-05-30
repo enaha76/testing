@@ -6,7 +6,6 @@ const session = require('express-session');
 const sequelize = require('./config/sequelize'); // Import the configured Sequelize instance
 // const {logintest,users} = require('./models');
 const logintest = require('./models/loginTest');
-const users = require('./models/users');
 
 const port = 3000;
 // const logintest=require('./models/loginTest');
@@ -71,6 +70,10 @@ app.post('/addlogintest', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
+
+  
+  
 
 app.get("/test", (req, res) => {
     if (req.session.isonline) {
@@ -239,6 +242,7 @@ app.get("/logout", (req, res) => {
 //     if (err) {
 //         console.log(err)
 //     } else {
+
 //         res.redirect('/')
 //     }
 //     })

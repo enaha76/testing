@@ -20,10 +20,15 @@ module.exports = {
       },
       reponse: {
         type: DataTypes.JSON,
+        allowNull: true
       },
       repExcepte: {
         type: DataTypes.JSON,
         allowNull: false
+      },
+      Test: {
+        type: DataTypes.STRING,
+        allowNull: true
       },
       created_at: {
         type: DataTypes.DATE,
