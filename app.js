@@ -246,18 +246,22 @@ app.get("/logout", (req, res) => {
 //         res.redirect('/')
 //     }
 //     })
+
 function log(va) {
     return axios.post("https://devmauripay.cadorim.com/api/mobile/login", va)
-        .then(response => response.data)
+        .then(response => response)
         .catch(error => {
-            console.error(error);
+            // console.error(error);
+            console.log("fuck");
         });
+    // return { "email": "1234567", "password": "3456" };
 }
+
 
 app.get('/data', async (req, res) => {
     try {
         const usersData = await users.findAll({
-            attributes: ['email', 'password'], // Specify the columns to include in the result
+            // attributes: ['email', 'password'], // Specify the columns to include in the result
         });
 
         const userArray = usersData.map(user => ({
@@ -265,49 +269,62 @@ app.get('/data', async (req, res) => {
             password: user.password,
         }));
 
-        // async function add(user, response) {
-        //     const { email, password } = user;
-        //     try {
-        //         // Create a new record in the logintest table
-        //         const newUser = await logintest.create({
-        //             email,
-        //             password,
-        //             response,
-        //             repExcepte: "ok",
-        //         });
-        //         console.log('New user added:', newUser);
-        //         return newUser;
-        //     } catch (error) {
-        //         console.error('Error inserting data:', error);
-        //         throw error; // Rethrow the error to be handled by the caller
-        //     }
-        // }
-
-        const promises = userArray.map(async (user) => {
-            const response = await log(user); // Wait for the log() function to resolve
-            return response; // Return the response object as-is
-        });
-
-        // const responseDataArray = await Promise.all(promises);
-
-        // for (let i = 0; i < userArray.length; i++) {
-        //     const user = userArray[i];
-        //     const responseData = responseDataArray[i];
-        //     await add(user, responseData);
-        //     console.log("data", responseData, "user", user);
-        // }
-
         const response = { userArray };
         res.json(response);
+        // return response;
     } catch (error) {
         console.error('Error fetching data:', error);
         res.status(500).send('Internal Server Error');
     }
 });
 
+// const { DataTypes } = require('sequelize');
+// const sequelize = require('../config/sequelize');
+// const Logintests = require('../models/Logintests');
+
+app.get('/all', async (req, res) => {
+    try {
+        const response2 = await axios.get('http://localhost:3000/data');
+        const data = response2.data.userArray;
+
+        const results = [];
+
+        for (const user of data) {
+            const response = await log(user);
+            console.log(response.status)
+            if(response.status === user.expected) {
+                
+                
+
+            }
+            else{
+            
+            }
+            
+            logintest.update(updatedValues, {
+                where: { id: recordId }
+            })
+            // const result = {
+            //     email: user.email,
+            //     password: user.password,
+            //     reponse: JSON.stringify(response),
+            //     repExcepte: 'ok'
+            // };
+
+            // results.push(result);
+        }
+
+        const createdUsers = await logintest.bulkCreate(results);
+        console.log('New users added:', createdUsers);
+
+        res.json({ message: 'Data inserted successfully' });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 
-// Start the server after connecting to the database
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
