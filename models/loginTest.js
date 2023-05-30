@@ -21,7 +21,7 @@ const Logintests = sequelize.define('logintests', {
     allowNull: true
   },
   repExcepte: {
-    type: DataTypes.JSON,
+    type: DataTypes.BOOLEAN,
     allowNull: false
   },
   Test: {
