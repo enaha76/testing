@@ -23,7 +23,7 @@ module.exports = {
         allowNull: true
       },
       repExcepte: {
-        type: DataTypes.JSON,
+        type: DataTypes.BOOLEAN,
         allowNull: false
       },
       Test: {
