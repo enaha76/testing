@@ -72,9 +72,6 @@ app.post('/addlogintest', async (req, res) => {
 });
 
 
-  
-  
-
 app.get("/test", (req, res) => {
     if (req.session.isonline) {
         const depots = req.query.depots;
@@ -203,11 +200,14 @@ app.post("/depot", (req, res) => {
             res.redirect("/test");
         });
 });
+
+
 app.get("toretrait", (req, res) => {
     res.render("retrait");
 });
+
 app.post("/retrait", (req, res) => {
-    //{ success: true, msg: 'deposit is done', montant: 5 }
+    
 
     const data = {
         code: req.body.code,
@@ -238,91 +238,78 @@ app.get("/logout", (req, res) => {
     });
 });
 
-// req.session.destroy(err => {
-//     if (err) {
-//         console.log(err)
-//     } else {
-
-//         res.redirect('/')
-//     }
-//     })
 
 function log(va) {
     return axios.post("https://devmauripay.cadorim.com/api/mobile/login", va)
         .then(response => response)
         .catch(error => {
             // console.error(error);
-            console.log("fuck");
+            console.log("");
         });
-    // return { "email": "1234567", "password": "3456" };
+    // return { "status": "200", "success": true };
 }
 
 
 app.get('/data', async (req, res) => {
     try {
-        const usersData = await users.findAll({
-            // attributes: ['email', 'password'], // Specify the columns to include in the result
-        });
-
-        const userArray = usersData.map(user => ({
-            email: user.email,
-            password: user.password,
-        }));
-
-        const response = { userArray };
-        res.json(response);
-        // return response;
+        const usersData = await logintest.findAll();
+        res.json(usersData);
     } catch (error) {
         console.error('Error fetching data:', error);
         res.status(500).send('Internal Server Error');
     }
 });
 
-// const { DataTypes } = require('sequelize');
-// const sequelize = require('../config/sequelize');
-// const Logintests = require('../models/Logintests');
-
 app.get('/all', async (req, res) => {
     try {
         const response2 = await axios.get('http://localhost:3000/data');
-        const data = response2.data.userArray;
-
+        const data = response2.data;
+        
         const results = [];
 
         for (const user of data) {
-            const response = await log(user);
-            console.log(response.status)
-            if(response.status === user.expected) {
-                
-                
-
-            }
-            else{
+            const response = await log({ email: user.email, password: user.password });
             
-            }
-            
-            logintest.update(updatedValues, {
-                where: { id: recordId }
-            })
-            // const result = {
-            //     email: user.email,
-            //     password: user.password,
-            //     reponse: JSON.stringify(response),
-            //     repExcepte: 'ok'
-            // };
 
-            // results.push(result);
+            const updatedValues = {
+
+            };
+            updatedValues.reponse = JSON.stringify(response.data);
+            
+            const Excepte = (user.repExcepte == 1) ? true : false;
+            if (response.data.success == Excepte || response.data.credentials == Excepte) {
+                updatedValues.Test = 'success';
+            }
+            else {
+                updatedValues.Test = 'false';
+            }
+
+
+            const rowsUpdated = await logintest.update(updatedValues, {
+                where: { id: user.id }
+            });
+
+
+            if (rowsUpdated > 0) {
+                console.log("rowsUpdated", user)
+            } else {
+                console.log('Record not found for user:', user);
+            }
         }
 
-        const createdUsers = await logintest.bulkCreate(results);
-        console.log('New users added:', createdUsers);
-
-        res.json({ message: 'Data inserted successfully' });
+        res.json({ message: 'everything done successfully' });
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('Internal Server Error');
     }
 });
+
+
+
+
+
+
+
 
 
 app.listen(port, () => {
