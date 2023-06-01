@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form action="insertretrait" method="post">
+        <select name="email" id="">
+            <% for (const user of results) { %> 
+                <option value="<%= JSON.stringify(user) %>"><%= user.email %></option>
+            <% } %>
+        </select>
+        <input type="text" name="tel_bf">
+        <input type="text" name="montant">
+        <input type="text" name="expected">
+        <input type="submit">
+    
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!-- <h1>eshfgvab;lh/zs.vrka j,em:LS?>DNblak iwj</h1>
+-->
+<!-- alo.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .spinner {
+            /* Add CSS styles for the spinner animation */
+            /* Example styles */
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            margin: auto;
+        }
+        
+        .spinner-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="spinner-container" id="spinnerContainer">
+        <div class="spinner"></div>
+    </div>
+
+
+<form action="insertretrait" method="post">
+    <select name="email" id="">
+        <% for (const user of results) { %> 
+            <option value="<%= JSON.stringify(user) %>"><%= user.email %></option>
+        <% } %>
+    </select>
+    <input type="text" name="code">
+    <input type="text" name="expected">
+    <input type="submit">
+
+</form>
+
+
+
+
+<!-- ... -->
+<a href="/retraittest" id="depotTestLink">tester</a>
+<span id="spinner" style="display: none;"><i class="fas fa-spinner fa-spin"></i></span>
+<!-- ... -->
+
+
+
+
+    <table id="depotsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Code</th>
+                <th>RepExcepte</th>
+                <th>Reponse</th>
+                <th>Test</th>
+                <th>Etat</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    
+    </table>
+
+    <p id="noDepotsMessage">No depots data available.</p>
+
+
+
+<div id="depotsData"></div>
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const depotTestLink = document.getElementById('depotTestLink');
+        const spinner = document.getElementById('spinner');
+        const depotsData = document.getElementById('depotsData');
+
+        depotTestLink.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            // Show the spinner
+            spinner.style.display = 'inline-block';
+
+            // Make an AJAX request to fetch the depots data
+            fetch('/depottest')
+                .then(response => response.json())
+                .then(data => {
+                    // Hide the spinner
+                    spinner.style.display = 'none';
+
+                    // Update the depots data dynamically
+                    if (data && data.length > 0) {
+                        const tableBody = document.createElement('tbody');
+                        data.forEach(depot => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${depot.id}</td>
+                                <td>${depot.email}</td>
+                                <td>${depot.code}</td>
+                                <td>${depot.repExcepte}</td>
+                                <td>${depot.reponse}</td>
+                                <td>${depot.Test}</td>
+                                <td>${depot.etat}</td>
+                            `;
+                            tableBody.appendChild(row);
+                        });
+                        depotsData.innerHTML = '';
+                        depotsData.appendChild(tableBody);
+                    } else {
+                        depotsData.innerHTML = '<p>No depots data available.</p>';
+                    }
+                })
+                .catch(error => {
+                    // Hide the spinner on error
+                    spinner.style.display = 'none';
+                    console.error(error);
+                });
+        });
+    });
+</script> -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const depotTestLink = document.getElementById('depotTestLink');
+        const spinner = document.getElementById('spinner');
+        const depotsTable = document.getElementById('depotsTable');
+        const noDepotsMessage = document.getElementById('noDepotsMessage');
+    
+        depotTestLink.addEventListener('click', (event) => {
+            event.preventDefault();
+    
+            // Show the spinner
+            spinner.style.display = 'inline-block';
+    
+            // Make an AJAX request to fetch the depots data
+            fetch('/retraittest')
+                .then(response => response.json())
+                .then(data => {
+                    // Hide the spinner
+                    spinner.style.display = 'none';
+    
+                    // Update the depots data dynamically
+                    if (data && data.length > 0) {
+                        const tableBody = document.createElement('tbody');
+                        data.forEach(depot => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${depot.id}</td>
+                                <td>${depot.email}</td>
+                                <td>${depot.code}</td>
+                                <td>${depot.repExcepte}</td>
+                                <td>${depot.reponse}</td>
+                                <td>${depot.Test}</td>
+                                <td>${depot.etat}</td>
+                            `;
+                            tableBody.appendChild(row);
+                        });
+                        
+                        depotsTable.appendChild(tableBody);
+                        noDepotsMessage.style.display = 'none';
+                    } else {
+                        depotsTable.innerHTML = '';
+                        noDepotsMessage.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    // Hide the spinner on error
+                    spinner.style.display = 'none';
+                    console.error(error);
+                });
+        });
+    });
+    
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+const urlWithoutSmodal = window.location.origin + window.location.pathname;
+window.history.replaceState(null, null, urlWithoutSmodal);
+});
+</script>
+</body>
+</html>
